@@ -196,7 +196,7 @@ extern void leveldb_writebatch_iterate(
     leveldb_writebatch_t*,
     void* state,
     void (*put)(void*, const char* k, size_t klen, const char* v, size_t vlen,
-                const int & type, const uint64_t & expiry),
+                const int * type, const uint64_t * expiry),
     void (*deleted)(void*, const char* k, size_t klen));
 
 /* Options */

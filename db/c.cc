@@ -408,7 +408,7 @@ void leveldb_writebatch_iterate(
     leveldb_writebatch_t* b,
     void* state,
     void (*put)(void*, const char* k, size_t klen, const char* v, size_t vlen,
-                const int & type, const uint64_t & expiry),
+                const int * type, const uint64_t * expiry),
     void (*deleted)(void*, const char* k, size_t klen)) {
   class H : public WriteBatch::Handler {
    public:
@@ -417,9 +417,9 @@ void leveldb_writebatch_iterate(
                  const int & type, const uint64_t & expiry);
     void (*deleted_)(void*, const char* k, size_t klen);
     virtual void Put(const Slice& key, const Slice& value,
-                     const leveldb::ValueType & type, const leveldb::ExpiryTime & expiry)
+                     const leveldb::ValueType * type, const leveldb::ExpiryTime * expiry)
     {
-        (*put_)(state_, key.data(), key.size(), value.data(), value.size(), (int)type, (uint64_t)expiry);
+        (*put_)(state_, key.data(), key.size(), value.data(), value.size(), (int *)type, (uint64_t *)expiry);
     }
     virtual void Delete(const Slice& key) {
       (*deleted_)(state_, key.data(), key.size());
